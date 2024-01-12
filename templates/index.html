@@ -78,9 +78,71 @@
         </div>
       </div>
     </header>
-    <main>
-      <div class="filter h-100"></div>
-      <div class="articles"></div>
+    <main class="mt-14 px-[10vw]">
+      <div class="filter flex justify-items-start gap-4 mt-8">
+        <a href="#" class="text-gray-500 hover:text-black underline"> ALL </a>
+        <a href="#" class="text-gray-500 hover:text-black">LATEST</a>
+        <a href="#" class="text-gray-500 hover:text-black">POPULAR</a>
+      </div>
+      <div class="articles">
+        <div class="grid grid-cols-3 gap-4 mt-8">
+          <div class="relative overflow-hidden">
+            <img
+              src="{% static 'homedec.jpg' %}"
+              alt="featured article Image"
+              class="h-full w-full object-cover"
+            />
+            <div
+              class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-80"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-4 text-white">
+              <h2 class="text-3xl font-bold">Article Title</h2>
+              <p class="text-sm">JANUARY 01, 2024 | JEAN LIONEL | 5 COMMENTS</p>
+            </div>
+          </div>
+          <div class="relative overflow-hidden">
+            <img
+              src="{% static 'forest_water_fall.jpg' %}"
+              alt="featured article Image"
+              class="h-full w-full object-cover"
+            />
+            <div
+              class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-80"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-4 text-white">
+              <h2 class="text-3xl font-bold">Article Title</h2>
+              <p class="text-sm">JANUARY 01, 2024 | JEAN LIONEL | 5 COMMENTS</p>
+            </div>
+          </div>
+          <div class="relative overflow-hidden">
+            <img
+              src="{% static 'shop.jpg' %}"
+              alt="featured article Image"
+              class="h-full w-full object-cover"
+            />
+            <div
+              class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-80"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-4 text-white">
+              <h2 class="text-3xl font-bold">Article Title</h2>
+              <p class="text-sm">JANUARY 01, 2024 | JEAN LIONEL | 5 COMMENTS</p>
+            </div>
+          </div>
+          <div class="relative overflow-hidden">
+            <img
+              src="{% static 'shop.jpg' %}"
+              alt="featured article Image"
+              class="h-full w-full object-cover"
+            />
+            <div
+              class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-80"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-4 text-white">
+              <h2 class="text-3xl font-bold">Article Title</h2>
+              <p class="text-sm">JANUARY 01, 2024 | JEAN LIONEL | 5 COMMENTS</p>
+            </div>
+          </div>
+      </div>
       <div class="w-1/5"></div>
     </main>
   </body>
