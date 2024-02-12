@@ -8,7 +8,6 @@ def index(request):
 
 def article(request, article_id):
     article = Article.objects.get(id=article_id)
-    titles = Article.objects.all().values_list('title', flat=True)
     return render(request, "article.html", {"article": article})
     
 
