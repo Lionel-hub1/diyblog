@@ -21,7 +21,7 @@ To run this project locally, follow these steps:
     git clone https://github.com/Lionel-hub1/diyblog.git
     ```
 2. Navigate to the project directory: 
-    ```Zsh
+    ```bash
     cd diyblog
     ```
 3. Create a virtual environment: 
@@ -29,7 +29,7 @@ To run this project locally, follow these steps:
     python -m venv venv
     ``` 
     or activate an existing one by running 
-    ```
+    ```bash
     source venv/bin/activate
     ```
     (Linux/Mac) or
@@ -37,9 +37,13 @@ To run this project locally, follow these steps:
     venv\Scripts\activate
     ```
     (Windows)
-4. Install the required dependencies: `pip install -r requirements.txt`
-5. Set up the database: `python manage.py migrate`
-6. Start the development server: `python manage.py runserver`
+4. Install the required dependencies: 
+    ```
+    pip install -r requirements.txt
+    ```
+5. Set up the database: 
+    ```python manage.py migrate```
+6. Start the development server: ```python manage.py runserver```
 
 ## Usage
 
