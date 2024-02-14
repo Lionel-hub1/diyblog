@@ -21,7 +21,7 @@ To run this project locally, follow these steps:
     git clone https://github.com/Lionel-hub1/diyblog.git
     ```
 2. Navigate to the project directory: 
-    ```
+    ```zsh
     cd diyblog
     ```
 3. Create a virtual environment: 
