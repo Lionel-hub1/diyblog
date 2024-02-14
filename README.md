@@ -16,9 +16,27 @@ The design of this blog was inspired by a Dribbble project created by [Abhinav C
 
 To run this project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/Lionel-hub1/diyblog.git`
-2. Navigate to the project directory: `cd diyblog`
-3. Create a virtual environment: `python -m venv venv` or activate an existing one by running `source venv/bin/activate` (Linux/Mac) or `venv\Scripts\activate` (Windows)
+1. Clone the repository: 
+    ```bash
+    git clone https://github.com/Lionel-hub1/diyblog.git
+    ```
+2. Navigate to the project directory: 
+    ```bash
+    cd diyblog
+    ```
+3. Create a virtual environment: 
+    ```bash
+    python -m venv venv
+    ``` 
+    or activate an existing one by running 
+    ```
+    source venv/bin/activate
+    ```
+    (Linux/Mac) or
+    ```
+    venv\Scripts\activate
+    ```
+    (Windows)
 4. Install the required dependencies: `pip install -r requirements.txt`
 5. Set up the database: `python manage.py migrate`
 6. Start the development server: `python manage.py runserver`
