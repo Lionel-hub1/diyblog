@@ -6,11 +6,11 @@ from .models import Article
 def index(request):
     return render(request, "index.html")
 
+
 def article(request, article_id):
     article = Article.objects.get(id=article_id)
     return render(request, "article.html", {"article": article})
     
-
 
 def about(request):
     return render(request, "about.html")
