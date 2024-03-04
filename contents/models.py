@@ -25,7 +25,6 @@ class Type(models.Model):
 
 class Article(models.Model):
     """Model for articles."""
-    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
     type = models.ForeignKey(Type, on_delete=models.DO_NOTHING, null = True, blank = True)
@@ -50,7 +49,6 @@ class Author(models.Model):
 
 class Comment(models.Model):
     """Model for comments on articles."""
-    id = models.AutoField(primary_key=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     author = models.CharField(max_length=255)
     content = models.TextField()
