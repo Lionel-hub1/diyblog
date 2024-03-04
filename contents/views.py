@@ -62,6 +62,9 @@ class CreateCommentAPIView(APIView):
 
     def get(self, request):
         return JsonResponse({'message': 'Comment was not found'}, status=404)
+    
+    def delete(self, request):
+        return JsonResponse({'message': 'Comment was not found'}, status=404)
 
 
 def about(request):

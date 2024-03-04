@@ -16,6 +16,13 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'article', 'author',
+                  'content', 'created_at', 'edited_at']
+
+
+class CommentsSerializer(serializers.ModelSerializer):
     article = ArticleSerializer()
 
     class Meta:
@@ -26,7 +33,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class ArticleWithCommentsSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True, source='comment_set')
+    comments = CommentsSerializer(many=True, source='comment_set')
+    type = serializers.StringRelatedField()
 
     class Meta:
         model = Article
