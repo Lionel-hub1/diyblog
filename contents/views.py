@@ -5,6 +5,7 @@ from .models import Article
 from .serializers import *
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from rest_framework import generics
 from django.views.decorators.csrf import csrf_exempt
 
@@ -13,6 +14,7 @@ def index(request):
     return render(request, "index.html")
 
 
+@api_view(['GET', 'POST', 'DELETE'])
 def OneArticleAPIView(request, id):
     article = Article.objects.get(id=id)
     serializer = ArticleSerializer(article)

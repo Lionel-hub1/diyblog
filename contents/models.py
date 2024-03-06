@@ -27,15 +27,13 @@ class Article(models.Model):
     """Model for articles."""
     title = models.CharField(max_length=255)
     content = models.TextField()
-    type = models.ForeignKey(Type, on_delete=models.DO_NOTHING, null = True, blank = True)
+    type = models.ForeignKey(
+        Type, on_delete=models.DO_NOTHING, null=True, blank=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     edited_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='article_images/')
-
-    def __str__(self):
-        return self.title
 
 
 class Author(models.Model):
