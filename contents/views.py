@@ -46,7 +46,10 @@ def ArticleCommentsAPIView(request, id):
 
     if request.method == "DELETE":
         count = Comment.objects.filter(id=id).delete()
-        return JsonResponse({'message': '{} Comments were deleted successfully!'.format(count[0])}, status=204)
+        return JsonResponse(
+            {'message': f'{count[0]} Comments were deleted successfully!'},
+            status=204,
+        )
 
     return JsonResponse({'message': 'Comment was not found'}, status=404)
 
@@ -64,7 +67,7 @@ class CreateCommentAPIView(APIView):
 
     def get(self, request):
         return JsonResponse({'message': 'Comment was not found'}, status=404)
-    
+
     def delete(self, request):
         return JsonResponse({'message': 'Comment was not found'}, status=404)
 
