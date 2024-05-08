@@ -22,7 +22,6 @@ urlpatterns = [
     path('create_comment/', views.CreateCommentAPIView.as_view(),
          name='create_comment'),
     path('about/', views.about, name='about'),
-    path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('swagger/', schema_view.with_ui('swagger',
          cache_timeout=0), name='schema-swagger-ui'),
