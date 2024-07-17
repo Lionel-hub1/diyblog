@@ -9,12 +9,12 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+# modified
 from datetime import timedelta
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-
+# modified
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# modified
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -34,7 +35,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# modified
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "djoser",
 ]
-
+# modified
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -59,7 +60,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
+# modified
 # SWAGGER SETTINGS
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -68,20 +69,21 @@ SWAGGER_SETTINGS = {
         }
     }
 }
-
+# modified
 AUTH_USER_MODEL = "contents.User"
 
+# modified
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
-
+# modified
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
 }
-
+# modified
 DJOSER = {
     'SERIALIZERS': {
         'user_create': 'contents.serializers.UserCreateSerializer',
@@ -118,7 +120,7 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
+# modified
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -172,12 +174,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
+# modified
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:5174"
 ]
-
+# modified
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:5173",
     "http://localhost:5174"
