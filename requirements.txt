@@ -26,12 +26,13 @@ PyJWT==2.8.0
 pylint==3.0.3
 pylint-django==2.5.5
 pylint-plugin-utils==0.8.2
-python-dotenv==1.0.1
+python-decouple==3.8
 python3-openid==3.2.0
 pytz==2024.1
 PyYAML==6.0.1
 requests==2.31.0
 requests-oauthlib==2.0.0
+setuptools==79.0.0
 social-auth-app-django==5.4.1
 social-auth-core==4.5.4
 sqlparse==0.4.4
