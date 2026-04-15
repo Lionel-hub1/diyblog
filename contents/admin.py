@@ -22,7 +22,7 @@ class ArticleAdmin(admin.ModelAdmin):
     )
     list_filter = ("type", "author")
     search_fields = ("title", "author__username", "content")
-    readonly_fields = ("image_preview",)
+    readonly_fields = ("image_preview", "created_at", "edited_at")
     inlines = [CommentInline]
     fieldsets = (
         (None, {"fields": ("title", "content", "type", "author")}),
@@ -31,9 +31,21 @@ class ArticleAdmin(admin.ModelAdmin):
     )
 
     def image_preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="max-height:120px;"/>', obj.image.url)
-        return ""
+        if not obj:
+            return ""
+        image = getattr(obj, "image", None)
+        if not image:
+            return ""
+        try:
+            url = image.url
+        except Exception:
+            return ""
+        return format_html('<img src="{}" style="max-height:120px;"/>', url)
+
+    def save_model(self, request, obj, form, change):
+        if not change and not getattr(obj, "author", None):
+            obj.author = request.user
+        super().save_model(request, obj, form, change)
 
     image_preview.short_description = "Image Preview"
 
