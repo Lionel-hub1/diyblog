@@ -51,7 +51,8 @@ def index(request):
 
 
 class ArticlesAPIView(generics.ListCreateAPIView):
-    queryset = Article.objects.select_related("type", "author").prefetch_related("comment_set")
+    queryset = Article.objects.select_related(
+        "type", "author").prefetch_related("comment_set")
     parser_classes = (JSONParser, FormParser, MultiPartParser)
 
     def get_permissions(self):
@@ -144,7 +145,8 @@ class RichTextImageUploadAPIView(APIView):
         extension = os.path.splitext(image.name)[1].lower()
         generated_name = f"rich_text_images/{uuid.uuid4().hex}{extension}"
         saved_path = default_storage.save(generated_name, image)
-        absolute_url = request.build_absolute_uri(default_storage.url(saved_path))
+        absolute_url = request.build_absolute_uri(
+            default_storage.url(saved_path))
         return Response({"url": absolute_url}, status=status.HTTP_201_CREATED)
 
 

@@ -50,7 +50,8 @@ class ArticleAuthoringAPITests(APITestCase):
             "image": self._get_test_image(),
         }
 
-        response = self.client.post(self.article_list_url, payload, format="multipart")
+        response = self.client.post(
+            self.article_list_url, payload, format="multipart")
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_non_author_user_cannot_create_article(self):
@@ -62,7 +63,8 @@ class ArticleAuthoringAPITests(APITestCase):
             "image": self._get_test_image(),
         }
 
-        response = self.client.post(self.article_list_url, payload, format="multipart")
+        response = self.client.post(
+            self.article_list_url, payload, format="multipart")
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_author_can_create_article(self):
@@ -74,7 +76,8 @@ class ArticleAuthoringAPITests(APITestCase):
             "image": self._get_test_image(),
         }
 
-        response = self.client.post(self.article_list_url, payload, format="multipart")
+        response = self.client.post(
+            self.article_list_url, payload, format="multipart")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Article.objects.count(), 1)
         self.assertEqual(Article.objects.first().author, self.author_user)
@@ -88,7 +91,8 @@ class ArticleAuthoringAPITests(APITestCase):
             "image": self._get_test_image(),
         }
 
-        response = self.client.post(self.article_list_url, payload, format="multipart")
+        response = self.client.post(
+            self.article_list_url, payload, format="multipart")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn("<p>Safe</p>", response.data["content"])
         self.assertNotIn("<script>", response.data["content"])

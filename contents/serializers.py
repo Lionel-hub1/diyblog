@@ -104,7 +104,8 @@ class ArticleSerializer(serializers.ModelSerializer):
             "edited_at",
             "image",
         ]
-        read_only_fields = ["id", "author", "created_at", "edited_at", "type_name"]
+        read_only_fields = ["id", "author",
+                            "created_at", "edited_at", "type_name"]
 
     def validate_content(self, value):
         if not value:
@@ -123,12 +124,14 @@ class ArticleSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ["id", "article", "author", "content", "created_at", "edited_at"]
+        fields = ["id", "article", "author",
+                  "content", "created_at", "edited_at"]
         read_only_fields = ["id", "created_at", "edited_at"]
 
 
 class ArticleWithCommentsSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True, source="comment_set", read_only=True)
+    comments = CommentSerializer(
+        many=True, source="comment_set", read_only=True)
     type = serializers.StringRelatedField()
     author = serializers.CharField(source="author.username", read_only=True)
 
