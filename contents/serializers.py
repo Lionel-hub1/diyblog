@@ -29,6 +29,14 @@ RICH_TEXT_ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS.union(
         "hr",
         "u",
         "s",
+        "figure",
+        "figcaption",
+        "table",
+        "thead",
+        "tbody",
+        "tr",
+        "th",
+        "td",
     }
 )
 
@@ -49,6 +57,17 @@ if CSSSanitizer is not None:
             "text-decoration",
             "width",
             "height",
+            "max-width",
+            "float",
+            "margin",
+            "margin-left",
+            "margin-right",
+            "margin-top",
+            "margin-bottom",
+            "display",
+            "clear",
+            "border",
+            "border-radius",
         ]
     )
 else:

@@ -5,7 +5,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .models import Article, Type, User
+from .models import Article, Comment, Type, User
 
 
 class ArticleAuthoringAPITests(APITestCase):
@@ -107,3 +107,51 @@ class ArticleAuthoringAPITests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn("url", response.data)
+
+    def test_author_can_delete_comment_on_own_article(self):
+        article = Article.objects.create(
+            title="Moderation article",
+            content="<p>Body</p>",
+            type=self.category,
+            author=self.author_user,
+            image=self._get_test_image(name="moderation-cover.png"),
+        )
+        comment = Comment.objects.create(
+            article=article,
+            author="Reader",
+            content="Needs moderation",
+        )
+
+        self.client.force_authenticate(user=self.author_user)
+        response = self.client.delete(
+            reverse("comment-detail", kwargs={"id": comment.id}))
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Comment.objects.filter(id=comment.id).exists())
+
+    def test_author_cannot_delete_category_with_linked_articles(self):
+        linked_type = Type.objects.create(name="Linked")
+        Article.objects.create(
+            title="Linked article",
+            content="<p>Body</p>",
+            type=linked_type,
+            author=self.author_user,
+            image=self._get_test_image(name="linked-cover.png"),
+        )
+
+        self.client.force_authenticate(user=self.author_user)
+        response = self.client.delete(
+            reverse("type-detail", kwargs={"id": linked_type.id}))
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("detail", response.data)
+
+    def test_author_can_delete_empty_category(self):
+        empty_type = Type.objects.create(name="Unused")
+
+        self.client.force_authenticate(user=self.author_user)
+        response = self.client.delete(
+            reverse("type-detail", kwargs={"id": empty_type.id}))
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Type.objects.filter(id=empty_type.id).exists())

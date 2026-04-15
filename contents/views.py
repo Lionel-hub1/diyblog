@@ -46,6 +46,25 @@ class IsOwnerOrStaffOrReadOnly(permissions.BasePermission):
         )
 
 
+class IsCommentModeratorOrStaff(permissions.BasePermission):
+    """Allow mutation for comment owners by article ownership or staff privileges."""
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        user = request.user
+        return bool(
+            user
+            and user.is_authenticated
+            and (
+                user.is_staff
+                or user.is_superuser
+                or obj.article.author_id == user.id
+            )
+        )
+
+
 def index(request):
     return render(request, "index.html")
 
@@ -91,6 +110,30 @@ class TypeListCreateAPIView(generics.ListCreateAPIView):
         return [permissions.AllowAny()]
 
 
+class TypeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Type.objects.all()
+    serializer_class = TypeSerializer
+    lookup_field = "id"
+
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.AllowAny()]
+        return [IsAuthorOrStaff()]
+
+    def destroy(self, request, *args, **kwargs):
+        category = self.get_object()
+        linked_articles_count = category.article_set.count()
+        if linked_articles_count > 0:
+            return Response(
+                {
+                    "detail": "Cannot delete this category because it is used by existing articles.",
+                    "linked_articles": linked_articles_count,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return super().destroy(request, *args, **kwargs)
+
+
 class ArticleCommentsAPIView(APIView):
     parser_classes = (JSONParser,)
     permission_classes = (permissions.AllowAny,)
@@ -130,6 +173,17 @@ class CreateCommentAPIView(APIView):
 
     def delete(self, request):
         return Response({"message": "Comment endpoint expects POST."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.select_related("article")
+    serializer_class = CommentSerializer
+    lookup_field = "id"
+
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.AllowAny()]
+        return [IsAuthorOrStaff(), IsCommentModeratorOrStaff()]
 
 
 class RichTextImageUploadAPIView(APIView):
