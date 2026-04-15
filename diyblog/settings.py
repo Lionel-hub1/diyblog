@@ -81,7 +81,7 @@ REST_FRAMEWORK = {
 }
 # modified
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
 }
 # modified
@@ -182,10 +182,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # modified
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "http://localhost:5174"
+    "http://localhost:5174",
 ]
-# modified
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:5173",
-    "http://localhost:5174"
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.onrender\.com$",
 ]
