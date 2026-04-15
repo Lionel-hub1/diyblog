@@ -37,6 +37,7 @@ setuptools==79.0.0
 social-auth-app-django==5.4.1
 social-auth-core==4.5.4
 sqlparse==0.4.4
+tinycss2==1.4.0
 tomlkit==0.12.3
 uritemplate==4.1.1
 urllib3==2.2.1

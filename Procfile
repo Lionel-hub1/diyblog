@@ -1,1 +1,1 @@
-web: gunicorn diyblog.wsgi
+web: gunicorn diyblog.wsgi:application --workers=1 --threads=2 --timeout=120

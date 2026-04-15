@@ -1,10 +1,14 @@
 import bleach
-from bleach.css_sanitizer import CSSSanitizer
 from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 from djoser.serializers import UserSerializer as BaseUserSerializer
 from rest_framework import serializers
 
 from .models import Article, Author, Comment, Type, User
+
+try:
+    from bleach.css_sanitizer import CSSSanitizer
+except ImportError:
+    CSSSanitizer = None
 
 RICH_TEXT_ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS.union(
     {
@@ -34,18 +38,21 @@ RICH_TEXT_ALLOWED_ATTRIBUTES = {
     "*": ["class", "style"],
 }
 
-RICH_TEXT_CSS_SANITIZER = CSSSanitizer(
-    allowed_css_properties=[
-        "color",
-        "background-color",
-        "text-align",
-        "font-weight",
-        "font-style",
-        "text-decoration",
-        "width",
-        "height",
-    ]
-)
+if CSSSanitizer is not None:
+    RICH_TEXT_CSS_SANITIZER = CSSSanitizer(
+        allowed_css_properties=[
+            "color",
+            "background-color",
+            "text-align",
+            "font-weight",
+            "font-style",
+            "text-decoration",
+            "width",
+            "height",
+        ]
+    )
+else:
+    RICH_TEXT_CSS_SANITIZER = None
 
 
 class UserSerializer(BaseUserSerializer):
@@ -111,13 +118,19 @@ class ArticleSerializer(serializers.ModelSerializer):
         if not value:
             return value
 
+        clean_kwargs = {
+            "tags": RICH_TEXT_ALLOWED_TAGS,
+            "attributes": RICH_TEXT_ALLOWED_ATTRIBUTES,
+            "protocols": ["http", "https", "mailto", "data"],
+            "strip": True,
+        }
+
+        if RICH_TEXT_CSS_SANITIZER is not None:
+            clean_kwargs["css_sanitizer"] = RICH_TEXT_CSS_SANITIZER
+
         return bleach.clean(
             value,
-            tags=RICH_TEXT_ALLOWED_TAGS,
-            attributes=RICH_TEXT_ALLOWED_ATTRIBUTES,
-            protocols=["http", "https", "mailto", "data"],
-            strip=True,
-            css_sanitizer=RICH_TEXT_CSS_SANITIZER,
+            **clean_kwargs,
         )
 
 

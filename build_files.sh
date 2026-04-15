@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 echo "Building project packages..."
 python3 -m pip install -r requirements.txt
