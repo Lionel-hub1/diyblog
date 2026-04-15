@@ -39,3 +39,7 @@ sqlparse==0.4.4
 tomlkit==0.12.3
 uritemplate==4.1.1
 urllib3==2.2.1
+gunicorn==21.2.0
+dj-database-url==2.1.0
+psycopg2-binary==2.9.9
+whitenoise==6.6.0

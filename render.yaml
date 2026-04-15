@@ -1,0 +1,16 @@
+version: "1"
+services:
+  - type: web
+    name: diyblog-backend
+    env: python
+    buildCommand: "chmod +x build_files.sh && ./build_files.sh"
+    startCommand: "gunicorn diyblog.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        value: "postgresql://lionel:6hbkspwrVN5CCXoncZ2wLHuplcHEz58t@dpg-d7fjtcjbc2fs739mk9l0-a/diyblog_db"
